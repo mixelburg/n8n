@@ -70,7 +70,6 @@ export const enum VIEWS {
 	MIGRATION_REPORT = 'MigrationReport',
 	MIGRATION_RULE_REPORT = 'MigrationRuleReport',
 	RESOLVERS = 'Resolvers',
-	INSTANCE_REGISTRY = 'InstanceRegistryView',
 	RESOURCE_CENTER = 'ResourceCenter',
 }
 
