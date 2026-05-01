@@ -57,16 +57,16 @@ test.describe(
 		// At N mains: should be N× baseline if load distributes evenly (per-main pod
 		// is independently handling HTTP). Sub-linear means LB or shared resource
 		// contention; super-linear is impossible (would indicate measurement bug).
-		test(`Async webhook + 10 nodes, 10KB, ${CONNECTIONS} connections × ${DURATION_SECONDS}s (${MAINS} main${MAINS === 1 ? '' : 's'} + ${STANDARD_WORKER_COUNT} workers)`, async ({
+		test(`Async webhook + 1 noop, 1KB payload, ${CONNECTIONS} connections × ${DURATION_SECONDS}s (${MAINS} main${MAINS === 1 ? '' : 's'} + ${STANDARD_WORKER_COUNT} workers)`, async ({
 			api,
 			services,
 			backendUrl,
 		}, testInfo) => {
 			const handle = setupWebhook({
 				scenario: {
-					nodeCount: 10,
-					payloadSize: '10KB',
-					nodeOutputSize: '10KB',
+					nodeCount: 1,
+					payloadSize: '1KB',
+					nodeOutputSize: 'noop',
 					responseMode: 'onReceived',
 				},
 			});

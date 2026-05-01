@@ -40,7 +40,7 @@ test.describe(
 		// This isolates the webhook ingestion path from worker execution capacity.
 		// HTTP req/s = ACK rate ceiling; n8n exec/s = worker drain rate (separate).
 		// Backlog growth = (req/s − exec/s).
-		test(`Async webhook + 10 nodes, 10KB payload, 10KB output/node, ${CONNECTIONS} connections × ${DURATION_SECONDS}s (1 main + ${STANDARD_WORKER_COUNT} workers)`, async ({
+		test(`Async webhook + 1 noop, 1KB payload, ${CONNECTIONS} connections × ${DURATION_SECONDS}s (1 main + ${STANDARD_WORKER_COUNT} workers)`, async ({
 			api,
 			services,
 			backendUrl,
