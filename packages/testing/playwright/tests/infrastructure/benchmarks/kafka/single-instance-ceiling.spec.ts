@@ -9,8 +9,6 @@ import {
 import { kafkaDriver } from '../../../../utils/benchmark';
 import { runThroughputTest } from '../harness/throughput-harness';
 
-const envMessages = parseInt(process.env.BENCHMARK_MESSAGES ?? '0', 10);
-
 const directConfig: N8NConfig = {
 	...BENCHMARK_BASE_CONFIG,
 	services: [...BENCHMARK_BASE_CONFIG.services!, 'kafka'],
@@ -43,7 +41,7 @@ test.describe(
 				api,
 				services,
 				testInfo,
-				messageCount: envMessages || 150_000,
+				messageCount: 150_000,
 				trigger: 'kafka',
 				timeoutMs: 1_800_000,
 				plan: BENCHMARK_MAIN_RESOURCES,

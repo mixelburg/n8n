@@ -23,10 +23,10 @@ import { runWebhookThroughputTest } from '../harness/webhook-throughput-harness'
 // The license is picked up from N8N_LICENSE_ACTIVATION_KEY / N8N_LICENSE_CERT
 // in the host environment by the container fixture.
 
-const MAINS = parseInt(process.env.WEBHOOK_MAINS ?? '2', 10);
-const WORKERS = parseInt(process.env.WEBHOOK_WORKERS ?? '2', 10);
-const CONNECTIONS = parseInt(process.env.WEBHOOK_CONNECTIONS ?? '200', 10);
-const DURATION_SECONDS = parseInt(process.env.WEBHOOK_DURATION_S ?? '60', 10);
+const MAINS = parseInt(process.env.WEBHOOK_MAINS ?? '3', 10);
+const WORKERS = 2;
+const CONNECTIONS = 200;
+const DURATION_SECONDS = 180;
 
 const queueConfig: N8NConfig = {
 	...BENCHMARK_BASE_CONFIG,

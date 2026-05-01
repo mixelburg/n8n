@@ -11,8 +11,8 @@ import {
 import { setupWebhook } from '../../../../utils/benchmark/webhook-driver';
 import { runWebhookThroughputTest } from '../harness/webhook-throughput-harness';
 
-const CONNECTIONS = parseInt(process.env.WEBHOOK_CONNECTIONS ?? '250', 10);
-const DURATION_SECONDS = parseInt(process.env.WEBHOOK_DURATION_S ?? '120', 10);
+const CONNECTIONS = 250;
+const DURATION_SECONDS = 120;
 
 const queueConfig: N8NConfig = {
 	...BENCHMARK_BASE_CONFIG,

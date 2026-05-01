@@ -9,8 +9,6 @@ import {
 import { kafkaDriver } from '../../../../utils/benchmark';
 import { runLoadTest } from '../harness/load-harness';
 
-const envMessages = parseInt(process.env.BENCHMARK_MESSAGES ?? '0', 10);
-
 const SHAPES = [{ nodeCount: 10 }, { nodeCount: 30 }, { nodeCount: 60 }] as const;
 
 const queueConfig: N8NConfig = {
@@ -35,7 +33,7 @@ test.describe(
 		],
 	},
 	() => {
-		const messageCount = envMessages || 5_000;
+		const messageCount = 5_000;
 
 		test(`Kafka trigger + noop, 1KB payload, ramp node count ${SHAPES.map((s) => s.nodeCount).join('→')} (1 main + ${STANDARD_WORKER_COUNT} workers)`, async ({
 			api,

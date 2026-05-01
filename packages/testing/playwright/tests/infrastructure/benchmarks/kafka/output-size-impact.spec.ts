@@ -10,8 +10,6 @@ import { kafkaDriver } from '../../../../utils/benchmark';
 import type { NodeOutputSize } from '../../../../utils/benchmark';
 import { runLoadTest } from '../harness/load-harness';
 
-const envMessages = parseInt(process.env.BENCHMARK_MESSAGES ?? '0', 10);
-
 const SHAPES: ReadonlyArray<{ outputSize: NodeOutputSize }> = [
 	{ outputSize: 'noop' },
 	{ outputSize: '10KB' },
@@ -40,7 +38,7 @@ test.describe(
 		],
 	},
 	() => {
-		const messageCount = envMessages || 5_000;
+		const messageCount = 5_000;
 
 		test(`Kafka trigger + 10 nodes, 1KB payload, ramp output size ${SHAPES.map((s) => s.outputSize).join('→')} (1 main + ${STANDARD_WORKER_COUNT} workers)`, async ({
 			api,

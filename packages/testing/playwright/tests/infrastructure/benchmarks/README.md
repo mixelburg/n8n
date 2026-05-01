@@ -61,10 +61,7 @@ WEBHOOK_MAINS=3 pnpm --filter=n8n-playwright test:benchmark webhook-main-scaling
 
 | Variable | Default | Effect |
 |----------|---------|--------|
-| `BENCHMARK_MESSAGES` | spec-defined | Override Kafka message count for throughput specs |
-| `WEBHOOK_CONNECTIONS` | 250 (200 for main-scaling) | Concurrent connections for webhook specs |
-| `WEBHOOK_DURATION_S` | 120 (60 for main-scaling) | Webhook test duration |
-| `WEBHOOK_MAINS` | 1 | Number of main pods for `webhook-main-scaling` |
+| `WEBHOOK_MAINS` | 3 | Number of main pods for `webhook-main-scaling` — sweep across runs to gather a scaling curve |
 | `N8N_CONTAINERS_KEEPALIVE` | unset | Keep containers alive after the run for debugging |
 
 ## Reading the results
