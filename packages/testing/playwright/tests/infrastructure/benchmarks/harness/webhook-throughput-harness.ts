@@ -90,7 +90,7 @@ export async function runWebhookThroughputTest(options: WebhookThroughputOptions
 
 	// Run autocannon + VictoriaMetrics measurement in parallel
 	console.log(
-		`[WEBHOOK] Starting ${connections} connections for ${durationSeconds}s → ${webhookUrl}\n` +
+		`[WEBHOOK] Starting ${connections} connections × 2 pipelining for ${durationSeconds}s → ${webhookUrl}\n` +
 			`  Workflow: ${nodeCount} nodes (${nodeOutputSize})`,
 	);
 
@@ -98,6 +98,9 @@ export async function runWebhookThroughputTest(options: WebhookThroughputOptions
 		autocannon({
 			url: webhookUrl,
 			connections,
+			// 2 in-flight requests per connection — doubles effective concurrency
+			// (Little's Law: throughput = in_flight / latency) without doubling sockets.
+			pipelining: 2,
 			duration: durationSeconds,
 			method: 'POST',
 			body: JSON.stringify(handle.payload),
