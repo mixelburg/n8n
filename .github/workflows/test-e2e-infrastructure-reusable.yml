@@ -38,7 +38,9 @@ jobs:
       #   - single-instance-ceiling (Kafka direct mode baseline)
       #   - webhook-ingestion-ceiling (queue mode, where pool starvation is visible)
       #   - webhook-direct-mode-ceiling (direct mode comparison)
-      test-command: "pnpm --filter=n8n-playwright test:all --project='${{ matrix.profile }}:infrastructure' --workers=1 --grep 'single instance|maximum webhook ingestion'"
+      # Note: wrapper appends `--workers=$WORKERS --shard=...` so we override workers via input.
+      test-command: "pnpm --filter=n8n-playwright test:all --project=${{ matrix.profile }}:infrastructure --grep 'single instance|maximum webhook ingestion'"
+      workers: '1'
       runner: ${{ matrix.runner }}
       timeout-minutes: 60
     secrets: inherit
