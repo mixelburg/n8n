@@ -6,7 +6,6 @@ import {
 	BENCHMARK_MAIN_RESOURCES,
 	BENCHMARK_WORKER_RESOURCES,
 	STANDARD_QUEUE_ENV,
-	STANDARD_WORKER_COUNT,
 } from '../../../../playwright-projects';
 import { setupWebhook } from '../../../../utils/benchmark/webhook-driver';
 import { runWebhookThroughputTest } from '../harness/webhook-throughput-harness';
@@ -24,14 +23,15 @@ import { runWebhookThroughputTest } from '../harness/webhook-throughput-harness'
 // The license is picked up from N8N_LICENSE_ACTIVATION_KEY / N8N_LICENSE_CERT
 // in the host environment by the container fixture.
 
-const MAINS = parseInt(process.env.WEBHOOK_MAINS ?? '1', 10);
+const MAINS = parseInt(process.env.WEBHOOK_MAINS ?? '2', 10);
+const WORKERS = parseInt(process.env.WEBHOOK_WORKERS ?? '2', 10);
 const CONNECTIONS = parseInt(process.env.WEBHOOK_CONNECTIONS ?? '200', 10);
 const DURATION_SECONDS = parseInt(process.env.WEBHOOK_DURATION_S ?? '60', 10);
 
 const queueConfig: N8NConfig = {
 	...BENCHMARK_BASE_CONFIG,
 	mains: MAINS,
-	workers: STANDARD_WORKER_COUNT,
+	workers: WORKERS,
 	env: {
 		...BENCHMARK_BASE_CONFIG.env,
 		...STANDARD_QUEUE_ENV,
@@ -57,7 +57,7 @@ test.describe(
 		// At N mains: should be N× baseline if load distributes evenly (per-main pod
 		// is independently handling HTTP). Sub-linear means LB or shared resource
 		// contention; super-linear is impossible (would indicate measurement bug).
-		test(`Async webhook + 1 noop, 1KB payload, ${CONNECTIONS} connections × ${DURATION_SECONDS}s (${MAINS} main${MAINS === 1 ? '' : 's'} + ${STANDARD_WORKER_COUNT} workers)`, async ({
+		test(`Async webhook + 1 noop, 1KB payload, ${CONNECTIONS} connections × ${DURATION_SECONDS}s (${MAINS} main${MAINS === 1 ? '' : 's'} + ${WORKERS} workers)`, async ({
 			api,
 			services,
 			backendUrl,
